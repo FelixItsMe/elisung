@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMesinsTable extends Migration
+class CreateHasilPanensTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateMesinsTable extends Migration
      */
     public function up()
     {
-        Schema::create('mesin', function (Blueprint $table) {
+        Schema::create('hasil_panen', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('seri')->unique();
-            $table->date('tgl_pembelian')->nullable();
-            $table->date('tgl_produksi')->nullable();
-            $table->string('foto')->nullable();
+            $table->date('tgl_panen');
+            $table->double('jumlah')->comment('k');
+            $table->string('nama_petani')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateMesinsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mesin');
+        Schema::dropIfExists('hasil_panen');
     }
 }

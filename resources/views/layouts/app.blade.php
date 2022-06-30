@@ -10,27 +10,48 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <!-- plugins:css -->
+        <link rel="stylesheet" href="{{ asset('vendors/mdi/css/materialdesignicons.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendors/css/vendor.bundle.base.css') }}">
+        <!-- endinject -->
+        <!-- Plugin css for this page -->
+        <!-- End plugin css for this page -->
+        <!-- inject:css -->
+        <!-- endinject -->
+        <!-- Layout styles -->
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <!-- End layout styles -->
+        <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
 
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <style>
+            .table-bordered {
+                border-color: rgb(45, 44, 44) !important;
+            }
+        </style>
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+        <div class="container-scroller">
+            @include('layouts.navbar')
 
-            <!-- Page Heading -->
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
+
+            <div class="container-fluid page-body-wrapper">
+                <!-- partial:partials/_navbar.html -->
+                @include('layouts.sidebar')
+                <!-- partial -->
+
+                <div class="main-panel">
+                    <div class="content-wrapper">
+                        {{ $header }}
+
+                        {{ $slot }}
+                    </div>
+                    @include('layouts.footer')
                 </div>
-            </header>
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+            </div>
         </div>
+
+        @include('layouts.script')
+        @stack('scripts')
     </body>
 </html>

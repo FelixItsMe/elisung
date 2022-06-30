@@ -19,6 +19,7 @@
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                     <form class="pt-3" method="POST" action="{{ route('login') }}">
+                        @csrf
                         <div class="form-group">
                             <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" name="nik" placeholder="NIK" value="{{ old('email') }}" required autofocus>
                         </div>
