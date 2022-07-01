@@ -18,12 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('elisung.telemetri.index'));
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::prefix('/elisung')->name('elisung.')->group(function () {
@@ -36,6 +32,7 @@ Route::middleware('auth')->group(function () {
         Route::apiResource('/telemetri', TelemetriController::class)->only(['index', 'show', 'destroy']);
 
         Route::get('/user-setting', [UserSettingController::class, 'index'])->name('user-setting.index');
+        Route::post('/user-setting', [UserSettingController::class, 'update'])->name('user-setting.update');
     });
 });
 

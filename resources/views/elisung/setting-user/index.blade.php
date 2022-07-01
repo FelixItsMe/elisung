@@ -26,6 +26,20 @@
                             {{-- <h4 class="card-title">Striped Table</h4> --}}
                         </div>
                         <div class="float-end">
+                            <div class="float-end">
+                                <button
+                                type="button"
+                                class="btn btn-primary btn-sm btn-fw btn-icon-text"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalForm"
+                                data-input-name="{{ Auth::user()->name }}"
+                                data-input-nik="{{ Auth::user()->nik }}"
+                                data-input-jenis-kelamin="{{ Auth::user()->jenis_kelamin }}"
+                                data-input-tgl-lahir="{{ Auth::user()->tgl_lahir }}"
+                                data-input-alamat="{{ Auth::user()->alamat }}"
+                                data-input-id="{{ Auth::user()->id }}"
+                                ><i class="mdi mdi-plus-circle-outline btn-icon-prepend"></i> Edit</button>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-12 table-responsive">
@@ -84,95 +98,89 @@
         </div>
     </div>
 
-    @include('elisung.telemetri._modal-detail')
+    @include('elisung.setting-user._modal-form')
 
     @push('scripts')
         <script>
 
             $(document).ready(function () {
-                $('.btn-detail').click( async e => {
-                    try {
-                        loadField()
-                        let dataId = $(e.target).data('id');
-                        let url = "{{ route('elisung.telemetri.show', ['telemetri' => 'ID']) }}"
+                const myModal = new bootstrap.Modal(document.getElementById("modalForm"), {});
+                const modal = document.getElementById('modalForm')
+                modal.addEventListener('show.bs.modal', function (event) {
+                    // Button that triggered the modal
+                    const button = event.relatedTarget
+                    // Extract info from data-bs-* attributes
+                    // const recipient = button.getAttribute('data-bs-whatever')
+                    const modalTitle = modal.querySelector('.modal-title')
 
+                    for (let index = 0; index < button.attributes.length; index++) {
+                        if (button.attributes[index].nodeName.includes('data-input')) {
+                            document.getElementById(button.attributes[index].nodeName).value = button.attributes[index].nodeValue
 
-                        let response = await axios.get(url.replace('ID', dataId));
-                        let data = response.data.data
-
-                        $('#text-waktu-mulai').html(data.t_awal);
-                        $('#text-waktu-selesai').html(data.t_akhir);
-                        $('#text-waktu-penggilingan').html(data.waktu_penggilingan);
-                        $('#text-latitude').html(data.latitude);
-                        $('#text-longitude').html(data.longitude);
-                        $('#text-hasil-beras').html(data.beras);
-                        $('#text-hasil-dedak').html(data.dedak);
-                        $('#text-bensin').html(data.bensin_pakai);
-                    } catch (error) {
-                        console.error(error.response.data.message);
-                    }
-                });
-            });
-
-            function loadField() {
-                let loadingElement = `<div class="d-flex align-items-center">
-                    <strong>Loading...</strong>
-                    <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
-                </div>`
-
-                $('#text-waktu-mulai').html(loadingElement);
-                $('#text-waktu-selesai').html(loadingElement);
-                $('#text-waktu-penggilingan').html(loadingElement);
-                $('#text-latitude').html(loadingElement);
-                $('#text-longitude').html(loadingElement);
-                $('#text-hasil-beras').html(loadingElement);
-                $('#text-hasil-dedak').html(loadingElement);
-                $('#text-bensin').html(loadingElement);
-            }
-
-            function handleDeleteRows(data) {
-                Swal.fire({
-                    text: "Menghapus data tidak dapat dibatalkan, dan semua data yang berhubungan akan hilang",
-                    icon: "warning",
-                    showCancelButton: true,
-                    buttonsStyling: false,
-                    confirmButtonText: "Yes, delete!",
-                    cancelButtonText: "No, cancel",
-                    customClass: {
-                        confirmButton: "btn fw-bold btn-danger",
-                        cancelButton: "btn fw-bold btn-active-light-primary"
-                    }
-                }).then(function (result) {
-                    if (result.value) {
-                        Swal.fire({
-                            html: '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span class=""> Loading...</span>',
-                            showConfirmButton: false,
-                            allowOutsideClick: false,
-                        });
-                        // Simulate delete request -- for demo purpose only
-                        const url = "{{ route('elisung.telemetri.destroy', 'ID') }}"
-                        let newUrl = url.replace('ID', data.id)
-
-                        axios.delete(newUrl)
-                        .then((response) => {
-                            this.loading = false;
-                            Swal.fire({
-                                text: "Kamu berhasil menghapus telemetri!.",
-                                icon: "success",
-                                buttonsStyling: false,
-                                confirmButtonText: "Ok",
-                                customClass: {
-                                    confirmButton: "btn fw-bold btn-primary",
+                            if (button.attributes[index].nodeName == 'data-input-id') {
+                                if (document.getElementById(button.attributes[index].nodeName).value != 'add') {
+                                    modalTitle.textContent = 'Edit'
+                                    // validator.validate()
+                                } else {
+                                    modalTitle.textContent = 'Tambah'
                                 }
-                            }).then(function () {
-                                // delete row data from server and re-draw datatable
-                                window.location.reload();
-                            });
+                            }
+                        }
+                    }
+
+                })
+
+                // Submit button handler
+                const submitButton = document.getElementById('submit-btn');
+                submitButton.addEventListener('click', function(e) {
+                    // Prevent default button action
+                    e.preventDefault();
+
+                    // Show loading indication
+                    submitButton.setAttribute('data-kt-indicator', 'on');
+
+                    // Disable button to avoid multiple click
+                    submitButton.disabled = true;
+
+                    // Simulate form submission. For more info check the plugin's official documentation: https://sweetalert2.github.io/
+                    let url, formSubmited;
+                    const editOrAdd = document.getElementById('data-input-id');
+                    const formData = new FormData();
+
+                    formData.append("name", document.getElementById('data-input-name').value)
+                    formData.append("nik", document.getElementById('data-input-nik').value)
+                    formData.append("jenis_kelamin", document.getElementById('data-input-jenis-kelamin').value)
+                    formData.append("tgl_lahir", document.getElementById('data-input-tgl-lahir').value)
+                    formData.append("alamat", document.getElementById('data-input-alamat').value)
+
+                    url = "{{ route('elisung.user-setting.update') }}"
+                    formSubmited = axios.post(url, formData)
+
+
+                    formSubmited.then((response) => {
+
+                            window.location.reload();
+
+                            // Remove loading indication
+                            submitButton.removeAttribute('data-kt-indicator');
+
+                            // Enable button
+                            submitButton.disabled = false;
                         })
                         .catch((error) => {
-                            let errorMessage = error
+                                // console.log(error);
+                            let errorMessage = ''
 
                             if (error.hasOwnProperty('response')) {
+
+                                for (const message in error.response.data.message) {
+                                    if (Object.hasOwnProperty.call(error.response.data.message, message)) {
+                                        const element = error.response.data.message[message];
+
+                                        errorMessage += element + "; "
+                                    }
+                                }
+
                                 if (error.response.status == 422) {
                                     errorMessage = 'Data yang dikirim tidak sesuai'
                                 }
@@ -188,15 +196,13 @@
                             });
 
                             // Remove loading indication
-                            // submitButton.removeAttribute('data-kt-indicator');
+                            submitButton.removeAttribute('data-kt-indicator');
 
                             // Enable button
-                            // submitButton.disabled = false;
+                            submitButton.disabled = false;
                         });
-                    }
                 });
-
-            }
+            });
 
         </script>
     @endpush

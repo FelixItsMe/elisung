@@ -35,7 +35,7 @@
                                 <th> Waktu Mulai </th>
                                 <th> Waktu Selesai </th>
                                 <th> Waktu Penggilingan (Detik)</th>
-                                <th> Hasil Beras </th>
+                                <th> Hasil Beras (Kilo)</th>
                                 <th style="width: 10%;"> Action </th>
                             </tr>
                           </thead>
@@ -111,6 +111,7 @@
                         $('#text-hasil-dedak').html(data.dedak);
                         $('#text-bensin').html(data.bensin_pakai);
                         $('#text-total-berat-padi').html(data.gabah);
+                        $('#text-rasio').html((data.beras / parseInt(data.gabah) * 100).toFixed(1));
                     } catch (error) {
                         console.error(error.response.data.message);
                     }
@@ -132,6 +133,7 @@
                 $('#text-hasil-dedak').html(loadingElement);
                 $('#text-bensin').html(loadingElement);
                 $('#text-total-berat-padi').html(loadingElement);
+                $('#text-rasio').html(loadingElement);
             }
 
             function handleDeleteRows(data) {

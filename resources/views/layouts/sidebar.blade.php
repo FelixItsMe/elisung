@@ -16,12 +16,6 @@
         </a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" href="index.html">
-            <span class="menu-title">Dashboard</span>
-            <i class="mdi mdi-home menu-icon"></i>
-        </a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link" href="{{ route('elisung.mesin.index') }}">
                 <span class="menu-title">Mesin</span>
                 <i class="mdi mdi-contacts menu-icon"></i>

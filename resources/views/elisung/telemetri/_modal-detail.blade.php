@@ -38,12 +38,16 @@
                                 <td class="align-middle text-center" id="text-longitude"></td>
                             </tr>
                             <tr>
-                                <td class="align-middle bg-dark text-white">Total Berat Padi</td>
+                                <td class="align-middle bg-dark text-white">Total Berat Padi (Kilo)</td>
                                 <td class="align-middle text-center" id="text-total-berat-padi"></td>
                             </tr>
                             <tr>
-                                <td class="align-middle bg-dark text-white">Hasil Beras (Liter)</td>
+                                <td class="align-middle bg-dark text-white">Hasil Beras (Kilo)</td>
                                 <td class="align-middle text-center" id="text-hasil-beras"></td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle bg-dark text-white">Rasio (%)</td>
+                                <td class="align-middle text-center" id="text-rasio"></td>
                             </tr>
                             <tr>
                                 <td class="align-middle bg-dark text-white">Hasil Dedak (Liter)</td>
