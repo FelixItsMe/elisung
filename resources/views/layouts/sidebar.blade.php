@@ -5,7 +5,7 @@
         <li class="nav-item nav-profile">
         <a href="#" class="nav-link">
             <div class="nav-profile-image">
-            <img src="{{ asset('images/faces/face1.jpg') }}" alt="profile">
+            <img src="{{ Auth::user()->foto ? asset(Auth::user()->foto) : asset('images/faces/face4.jpg') }}" alt="profile">
             <span class="login-status online"></span>
             <!--change to offline or busy as needed-->
             </div>

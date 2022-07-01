@@ -46,6 +46,8 @@
                         {{ $slot }}
                     </div>
                     @include('layouts.footer')
+                    <div class="position-absolute bottom-0 end-0 p-3" style="z-index: 999999" id="my-toast">
+                    </div>
                 </div>
 
             </div>

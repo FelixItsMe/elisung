@@ -17,6 +17,20 @@
             <div class="row">
                 <div class="col mb-3">
                     <div class="form-group">
+                      <label>Foto Profile</label>
+                      <input type="file" name="foto" class="file-upload-default" id="data-input-foto">
+                      <div class="input-group col-xs-12">
+                        <input type="text" class="form-control file-upload-info bg-white" disabled placeholder="Upload Image">
+                        <span class="input-group-append">
+                          <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
+                        </span>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <div class="form-group">
                         <label for="data-input-tgl-panen">Nama</label>
                         <input
                         type="text"

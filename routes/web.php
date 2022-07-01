@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/user-setting', [UserSettingController::class, 'index'])->name('user-setting.index');
         Route::post('/user-setting', [UserSettingController::class, 'update'])->name('user-setting.update');
+        Route::post('/user-setting/password', [UserSettingController::class, 'updatePassword'])->name('user-setting.update-password');
     });
 });
 
