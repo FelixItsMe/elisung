@@ -19,7 +19,8 @@ class TelemetriController extends Controller
             'waktu_penggilingan' => 'required|integer',
             'bensin'  => 'required|numeric|min:0',
             'hasil_beras'  => 'required|numeric|min:0',
-            'hasil_dedak'  => 'required|numeric|min:0'
+            'hasil_dedak'  => 'required|numeric|min:0',
+            'gabah' => 'required'
         ]);
 
         if ($v->fails()) {
@@ -36,7 +37,8 @@ class TelemetriController extends Controller
             'dedak' => $request->hasil_dedak,
             'bensin_pakai' => $request->bensin,
             'latitude' => $request->latitude,
-            'longitude' => $request->longitude
+            'longitude' => $request->longitude,
+            'gabah' => $request->gabah
         ]);
 
         return response()->json([

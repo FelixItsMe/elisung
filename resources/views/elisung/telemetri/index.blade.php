@@ -110,6 +110,7 @@
                         $('#text-hasil-beras').html(data.beras);
                         $('#text-hasil-dedak').html(data.dedak);
                         $('#text-bensin').html(data.bensin_pakai);
+                        $('#text-total-berat-padi').html(data.gabah);
                     } catch (error) {
                         console.error(error.response.data.message);
                     }
@@ -130,6 +131,7 @@
                 $('#text-hasil-beras').html(loadingElement);
                 $('#text-hasil-dedak').html(loadingElement);
                 $('#text-bensin').html(loadingElement);
+                $('#text-total-berat-padi').html(loadingElement);
             }
 
             function handleDeleteRows(data) {
