@@ -5,10 +5,9 @@
             <div class="row flex-grow">
               <div class="col-lg-4 mx-auto">
                 <div class="auth-form-light text-left p-5">
-                  {{-- <div class="brand-logo">
-                    <img src="{{ asset('images/logo.svg') }}">
-                  </div> --}}
-                <h1 class="text-primary fw-bold">E-Lisung</h1>
+                  <div class="brand-logo">
+                    <img src="{{ asset('images/Screenshot_35.png') }}">
+                  </div>
 
                   <h6 class="font-weight-light">Sign in to continue.</h6>
 

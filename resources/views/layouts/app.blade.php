@@ -23,11 +23,19 @@
         <!-- End layout styles -->
         <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
 
+        @stack('links')
+
         <style>
             .table-bordered {
                 border-color: rgb(45, 44, 44) !important;
             }
+
+            .img-h img {
+                height: 35px !important;
+            }
         </style>
+
+        @stack('styles')
     </head>
     <body class="font-sans antialiased">
         <div class="container-scroller">

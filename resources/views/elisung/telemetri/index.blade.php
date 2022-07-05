@@ -1,4 +1,17 @@
 <x-app-layout>
+
+    @push('links')
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+        integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+        crossorigin=""/>
+        <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+    @endpush
+    @push('styles')
+        <style>
+            #map { height: 280px; }
+        </style>
+    @endpush
+
     <x-slot name="header">
         <div class="page-header">
             <h3 class="page-title">
@@ -58,6 +71,14 @@
                                         >Detail</button>
 
                                         <button
+                                        type="button"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalMap"
+                                        class="btn btn-success btn-sm my-1 mx-1 btn-map"
+                                        data-id="{{ $telemetri->id }}"
+                                        >Map</button>
+
+                                        <button
                                         class="btn btn-gradient-danger btn-sm my-1 mx-1 btn-icon-text"
                                         onclick="handleDeleteRows({{ $telemetri }})"
                                         >
@@ -87,10 +108,14 @@
     </div>
 
     @include('elisung.telemetri._modal-detail')
+    @include('elisung.telemetri._modal-map')
 
     @push('scripts')
+        <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+        integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+        crossorigin=""></script>
+        <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
         <script>
-
             $(document).ready(function () {
                 $('.btn-detail').click( async e => {
                     try {
@@ -100,7 +125,7 @@
 
 
                         let response = await axios.get(url.replace('ID', dataId));
-                        let data = response.data.data
+                        const data = response.data.data
 
                         $('#text-waktu-mulai').html(data.t_awal);
                         $('#text-waktu-selesai').html(data.t_akhir);
@@ -116,7 +141,46 @@
                         console.error(error.response.data.message);
                     }
                 });
+
+                $('.btn-map').click(async function (e) {
+                    e.preventDefault();
+
+                    let dataId = $(this).data('id');
+                    let url = "{{ route('elisung.telemetri.show', ['telemetri' => 'ID']) }}"
+
+
+                    let response = await axios.get(url.replace('ID', dataId));
+                    const data = response.data.data
+
+                    let promise = new Promise((resolve, reject) => {
+                        setTimeout(() => {
+                            settingMap(parseFloat(data.latitude), parseFloat(data.longitude))
+                            resolve("done!")
+                        }, 500);
+                    });
+
+                    let result = await promise;
+
+                    $('#map-spinner').remove();
+                });
             });
+
+            const settingMap = (lat, lng) => {
+                let map = L.map('map', {
+                    fullscreenControl: {
+                        pseudoFullscreen: true // if true, fullscreen to page width and height
+                    }
+                }).setView([lat, lng], 12)
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '© OpenStreetMap',
+                }).addTo(map);
+
+                let marker = L.marker([lat, lng]).addTo(map);
+
+                marker.bindPopup("Lat: "+lat+"<br>Long: "+lng).openPopup();
+            }
 
             function loadField() {
                 let loadingElement = `<div class="d-flex align-items-center">
@@ -201,7 +265,6 @@
                         });
                     }
                 });
-
             }
 
         </script>
