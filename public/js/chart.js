@@ -263,7 +263,7 @@ $(function () {
       borderColor: ['rgba(255, 99, 132, 0.5)'],
       backgroundColor: ['rgba(255, 99, 132, 0.5)'],
       borderWidth: 1,
-      fill: true
+      fill: false
     },
     {
       label: 'Twitter',
@@ -271,16 +271,8 @@ $(function () {
       borderColor: ['rgba(54, 162, 235, 0.5)'],
       backgroundColor: ['rgba(54, 162, 235, 0.5)'],
       borderWidth: 1,
-      fill: true
+      fill: false
     },
-    {
-      label: 'Linkedin',
-      data: [6, 14, 16, 20, 12, 18, 15, 12, 17, 19, 15, 11],
-      borderColor: ['rgba(255, 206, 86, 0.5)'],
-      backgroundColor: ['rgba(255, 206, 86, 0.5)'],
-      borderWidth: 1,
-      fill: true
-    }
     ]
   };
 
@@ -290,23 +282,6 @@ $(function () {
         propagate: true
       }
     },
-    elements: {
-      point: {
-        radius: 0
-      }
-    },
-    scales: {
-      xAxes: [{
-        gridLines: {
-          display: false
-        }
-      }],
-      yAxes: [{
-        gridLines: {
-          display: false
-        }
-      }]
-    }
   }
 
   var scatterChartData = {

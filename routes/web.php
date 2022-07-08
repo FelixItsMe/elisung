@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Elisung\DashboardController;
 use App\Http\Controllers\Elisung\HasilPanenController;
 use App\Http\Controllers\Elisung\MesinController;
 use App\Http\Controllers\Elisung\TelemetriController;
@@ -23,6 +24,12 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
     Route::prefix('/elisung')->name('elisung.')->group(function () {
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard.index');
+
+        Route::resource('/dashboard-data', DashboardController::class)->only(['index']);
+
         Route::post('/mesin/{id}', [MesinController::class, 'update']);
         Route::apiResource('/mesin', MesinController::class);
 

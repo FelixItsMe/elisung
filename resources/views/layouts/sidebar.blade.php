@@ -3,7 +3,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item nav-profile">
-        <a href="#" class="nav-link">
+        <a href="{{ route('elisung.dashboard.index') }}" class="nav-link">
             <div class="nav-profile-image">
             <img src="{{ Auth::user()->foto ? asset(Auth::user()->foto) : asset('images/faces/face4.jpg') }}" alt="profile">
             <span class="login-status online"></span>
@@ -14,6 +14,12 @@
             </div>
             <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
         </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('elisung.dashboard.index') }}">
+                <span class="menu-title">Dashboard</span>
+                <i class="mdi mdi-home menu-icon"></i>
+            </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('elisung.mesin.index') }}">
