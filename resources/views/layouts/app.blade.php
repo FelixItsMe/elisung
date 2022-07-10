@@ -31,7 +31,7 @@
             }
 
             .img-h img {
-                height: 35px !important;
+                height: 50px !important;
             }
         </style>
 

@@ -1,13 +1,16 @@
 
 <!-- partial:partials/_sidebar.html -->
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
-    <ul class="nav">
+    <ul
+    class="nav"
+    style="margin-top: 25px;"
+    >
         <li class="nav-item nav-profile">
         <a href="{{ route('elisung.dashboard.index') }}" class="nav-link">
             <div class="nav-profile-image">
-            <img src="{{ Auth::user()->foto ? asset(Auth::user()->foto) : asset('images/faces/face4.jpg') }}" alt="profile">
-            <span class="login-status online"></span>
-            <!--change to offline or busy as needed-->
+                <img src="{{ Auth::user()->foto ? asset(Auth::user()->foto) : asset('images/faces/face4.jpg') }}" alt="profile">
+                <span class="login-status online"></span>
+                <!--change to offline or busy as needed-->
             </div>
             <div class="nav-profile-text d-flex flex-column">
             <span class="font-weight-bold mb-2">{{ Auth::user()->name }}</span>

@@ -5,7 +5,10 @@
             <div class="row flex-grow">
               <div class="col-lg-4 mx-auto">
                 <div class="auth-form-light text-left p-5">
-                  <div class="brand-logo">
+                    <div class="brand-logo text-center">
+                      <img src="{{ asset('images/SMK-KARTIKA-LOGO.png') }}">
+                    </div>
+                  <div class="brand-logo text-center">
                     <img src="{{ asset('images/Screenshot_35.png') }}">
                   </div>
 
